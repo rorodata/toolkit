@@ -21,14 +21,18 @@ def get_version():
 __version__ = get_version()
 
 install_requires = []
+extras_require = {
+    'all': ['requests']
+}
 
 setup(
-    name='toolkit',
+    name='algoshelf-toolkit',
     version=__version__,
     author='Algoshelf Team',
     author_email='engineering@algoshelf.net',
     description='Assorted utilities from Algoshelf',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=install_requires
+    install_requires=install_requires,
+    extras_require=extras_require
 )
