@@ -26,7 +26,10 @@ class API:
         return self.request('GET', path, params=params, **kwargs).json()
 
     def post(self, path, data=None, json=None, **kwargs):
-        return self.request('GET', path, data=data, json=json, **kwargs).json()
+        return self.request('POST', path, data=data, json=json, **kwargs).json()
+
+    def delete(self, path, **kwargs):
+        return self.request('POST', path, **kwargs).json()
 
     def request(self, method, path, **kwargs):
         url = self.base_url + path
