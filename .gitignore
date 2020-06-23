@@ -1,0 +1,14 @@
+*.pyc
+__pycache__
+*.egg-info/
+.coverage
+
+# Environments
+.env
+.venv
+env/
+venv/
+*.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
