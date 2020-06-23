@@ -1,0 +1,43 @@
+name: toolkit CI
+on: pull_request
+
+jobs:
+  tests:
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/cache@v1
+      with:
+        path: ~/venv
+        key: ${{ runner.os }}-venv-${{ hashFiles('*requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-venv-
+    - name: setup virtualenv
+      run: |
+        python -m venv ~/venv
+    - name: Install dependencies
+      run: |
+        source ~/venv/bin/activate
+        pip install -r dev-requirements.txt -r requirements.txt
+    - name: Run toolkit tests
+      run: |
+        source ~/venv/bin/activate
+        ./runtests.sh
+      env:
+        TEST_DATABASE_URL: postgres://postgres:postgres@localhost:${{ job.services.postgres.ports['5432'] }}/postgres
