@@ -7,7 +7,6 @@ Assorted utilities from Algoshelf.
 
 from setuptools import setup, find_packages
 from pathlib import Path
-import sys
 
 def get_version():
     """Returns the package version taken from version.py.
