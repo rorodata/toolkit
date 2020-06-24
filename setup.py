@@ -19,7 +19,7 @@ def get_version():
 
 __version__ = get_version()
 
-install_requires = []
+install_requires = ['web.py', 'psycopg2-binary', 'pandas', 'pyYAML', 'click']
 extras_require = {
     'all': ['requests']
 }
@@ -33,5 +33,8 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,
-    extras_require=extras_require
+    extras_require=extras_require,
+    entry_points = {
+        'console_scripts': ['validate-fileformat=toolkit.cli:validate_fileformat'],
+    }
 )
