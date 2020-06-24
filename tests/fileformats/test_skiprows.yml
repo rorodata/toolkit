@@ -1,0 +1,24 @@
+name: test skiprows
+fileformat:
+  name: test
+  description: test
+  options:
+    skiprows: 2
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: name
+      label: NAME
+      datatype: string
+inputfile_contents: |
+  line 1
+  line 2
+  ID,NAME
+  BLR,Bangalore
+  DEL,Delhi
+result:
+  columns: ['id', 'name']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']

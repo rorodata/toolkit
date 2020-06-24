@@ -1,0 +1,30 @@
+name: test repeats
+fileformat:
+  name: test
+  description: test
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: date
+      label: DATE
+      datatype: string
+      missing_values:
+        - missing
+      required: false
+inputfile:
+  columns: ['ID', 'DATE']
+  data:
+    - ['100', '2019-10-10']
+    - ['101', '2010-10-11']
+    - ['102', 'missing']
+    - ['103', '']
+    - ['104', '2010-10-12']
+result:
+  columns: ['id', 'date']
+  data:
+    - ['100', '2019-10-10']
+    - ['101', '2010-10-11']
+    - ['102', null]
+    - ['103', null]
+    - ['104', '2010-10-12']

@@ -1,0 +1,89 @@
+name: test unique
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+      unique: true
+    - name: name
+      label: NAME
+      datatype: string
+inputfile:
+  columns: ['ID', 'NAME']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']
+    - ['BLR', 'Bengaluru']
+errors:
+  - error_level: row
+    error_code: duplicate_value
+    error_message: "Found duplicate value: 'BLR'"
+    row_index: 2
+    column_name: ID
+    value: 'BLR'
+
+---
+name: test unique with multiple duplicate values
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+      unique: true
+    - name: name
+      label: NAME
+      datatype: string
+inputfile:
+  columns: ['ID', 'NAME']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']
+    - ['BLR', 'Bengaluru']
+    - ['DEL', 'Delhi']
+    - ['BLR', 'Bengaluru']
+errors:
+  - error_level: row
+    error_code: duplicate_value
+    error_message: "Found duplicate value: 'BLR'"
+    row_index: 2
+    column_name: ID
+    value: 'BLR'
+  - error_level: row
+    error_code: duplicate_value
+    error_message: "Found duplicate value: 'DEL'"
+    row_index: 3
+    column_name: ID
+    value: 'DEL'
+  - error_level: row
+    error_code: duplicate_value
+    error_message: "Found duplicate value: 'BLR'"
+    row_index: 4
+    column_name: ID
+    value: 'BLR'
+---
+name: test unique with success
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+      unique: true
+    - name: name
+      label: NAME
+      datatype: string
+inputfile:
+  columns: ['ID', 'NAME']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']
+result:
+  columns: ['id', 'name']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']
