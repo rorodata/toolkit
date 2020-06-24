@@ -256,11 +256,11 @@ ROW_VALIDATORS = {}
 def row_validator(name=None):
     """Registers a row validator with given name.
 
-    Usage:
+    Usage::
 
-        @row_validator("something")
-        def validate_something(index, row, report) -> List[FileFormatError]:
-            ...
+        >>> @row_validator("something")
+        >>> def validate_something(index, row, report) -> List[FileFormatError]:
+        >>>    ...
     """
     def decorator(func):
         key = name or func.__name__
@@ -447,11 +447,11 @@ class FileFormat:
             description=description,
             options=options)
 
-class FileStatus(Enum):
+class FileStatus(str, Enum):
     ACCEPTED = "ACCEPTED"
     REJECTED = "REJECTED"
 
-class FileErrorLevel(Enum):
+class FileErrorLevel(str, Enum):
     ROW = "row"
     FILE = "file"
 
@@ -525,3 +525,11 @@ class FileFormatReport:
             column_name=column_name,
             value=value)
         self.errors.append(e)
+
+    def dict(self):
+        d = asdict(self)
+        d.pop('df', None) # Delete df from the report
+        return d
+
+    def is_file_accepted(self):
+        return self.status == FileStatus.ACCEPTED
