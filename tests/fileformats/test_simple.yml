@@ -1,0 +1,21 @@
+name: test fileformats with a simple input
+fileformat:
+  name: test
+  description: first format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: name
+      label: NAME
+      datatype: string
+inputfile:
+  columns: ['ID', 'NAME']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']
+result:
+  columns: ['id', 'name']
+  data:
+    - ['BLR', 'Bangalore']
+    - ['DEL', 'Delhi']

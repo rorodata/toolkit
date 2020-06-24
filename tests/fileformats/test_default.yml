@@ -1,0 +1,59 @@
+name: test default
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: name
+      label: NAME
+      datatype: string
+    - name: city
+      label: CITY
+      datatype: string
+      default: MISSING
+inputfile:
+  columns: ['ID', 'NAME', 'CITY']
+  data:
+    - ['S1', 'Store 1', 'BLR']
+    - ['S2', 'Store 2', 'DEL']
+    - ['S3', 'Store 3', '']
+    - ['S4', 'Store 4', null]
+result:
+  columns: ["id", "name", "city"]
+  data:
+    - ['S1', 'Store 1', 'BLR']
+    - ['S2', 'Store 2', 'DEL']
+    - ['S3', 'Store 3', 'MISSING']
+    - ['S4', 'Store 4', 'MISSING']
+---
+name: test missing
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: name
+      label: NAME
+      datatype: string
+    - name: city
+      label: CITY
+      datatype: string
+      default: MISSING
+inputfile:
+  columns: ['ID', 'NAME', 'CITY']
+  data:
+    - ['S1', 'Store 1', 'BLR']
+    - ['', 'Store 2', 'DEL']
+    - ['S3', 'Store 3', '']
+    - ['S4', 'Store 4', null]
+errors:
+  - error_level: row
+    error_code: missing_value
+    error_message: "Found missing value: ''"
+    row_index: 1
+    column_name: ID
+    value: ''

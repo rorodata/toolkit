@@ -1,0 +1,33 @@
+name: test options
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+      unique: true
+      regex: 'S[0-9]+'
+    - name: name
+      label: NAME
+      datatype: string
+inputfile:
+  columns: ['ID', 'NAME']
+  data:
+    - ['S1', 'Store 1']
+    - ['S2', 'Store 2']
+    - ['S 3', 'Store 3']
+    - ['x4', 'Store 3']
+errors:
+  - error_level: row
+    error_code: invalid_pattern
+    error_message: "The value is not matching the pattern S[0-9]+: 'S 3'"
+    row_index: 2
+    column_name: ID
+    value: S 3
+  - error_level: row
+    error_code: invalid_pattern
+    error_message: "The value is not matching the pattern S[0-9]+: 'x4'"
+    row_index: 3
+    column_name: ID
+    value: x4

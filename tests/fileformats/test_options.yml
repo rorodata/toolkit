@@ -1,0 +1,29 @@
+name: test options
+fileformat:
+  name: test
+  description: test format
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+      unique: true
+    - name: name
+      label: NAME
+      datatype: string
+    - name: active
+      label: ACTIVE
+      datatype: string
+      options: ['Y', 'N']
+inputfile:
+  columns: ['ID', 'NAME', 'ACTIVE']
+  data:
+    - ['BLR', 'Bangalore', 'Y']
+    - ['DEL', 'Delhi', 'N']
+    - ['MUM', 'Mumbai', 'Yes']
+errors:
+  - error_level: row
+    error_code: invalid_value
+    error_message: "The value is not one of the allowed options: 'Yes'"
+    row_index: 2
+    column_name: ACTIVE
+    value: 'Yes'

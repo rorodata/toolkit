@@ -1,0 +1,30 @@
+name: test repeats
+fileformat:
+  name: test
+  description: test
+  options:
+    skiprows: 2
+    repeat_last_column: true
+  columns:
+    - name: id
+      label: ID
+      datatype: string
+    - name: item
+      label: ITEM
+      datatype: string
+      required: false
+inputfile_contents: |
+  line 1
+  line 2
+  ID,ITEM
+  100,Idly,Sambar
+  101,Idly
+  102,Idly,Dosa
+  103,Idly,Dosa,Paratha
+result:
+  columns: ['id', 'item']
+  data:
+    - ['100', ['Idly', 'Sambar']]
+    - ['101', ['Idly']]
+    - ['102', ['Idly', 'Dosa']]
+    - ['103', ['Idly', 'Dosa', 'Paratha']]
