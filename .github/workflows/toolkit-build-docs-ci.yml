@@ -1,0 +1,49 @@
+name: build toolkit docs CI
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/cache@v1
+      with:
+        path: ~/venv
+        key: ${{ runner.os }}-venv-${{ hashFiles('*requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-venv-
+    - name: setup virtualenv
+      run: |
+        python -m venv ~/venv
+    - name: Install dependencies
+      run: |
+        source ~/venv/bin/activate
+        pip install -r dev-requirements.txt -r requirements.txt
+    - name: build toolkit docs
+      working-directory: docs
+      run: |
+        source ~/venv/bin/activate
+        make clean
+        make html
+        cp -r build/html ~/html
+    - name: push html docs to websites repo
+      env:
+        GITHUB_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        USER_EMAIL: leela.vadlamudi@gmail.com
+        USER_NAME: Leela
+      run: |
+        git config --global user.email $USER_EMAIL
+        git config --global user.name $USER_NAME
+        git clone https://.:$GITHUB_ACCESS_TOKEN@github.com/rorodata/websites.git
+        cd websites
+        cp -r ~/html toolkit.docs.rorodata.net
+        git add toolkit.docs.rorodata.net/html
+        git commit -m "Updated toolkit docs - $GITHUB_SHA"
+        git push -u origin master
