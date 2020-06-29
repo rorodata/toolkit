@@ -6,10 +6,10 @@ pd = lazy_import("pandas")
 def truncate_date(date, timescale: str):
     """Truncates a date to nearest week or month.
 
-    Parameters
-    ----------
-    date: the date to truncate
-    timescale: one of day/week/month or daily/weekly/monthly
+    :param date: the date to truncate
+    :param timescale: one of day/week/month or daily/weekly/monthly
+
+    :returns: truncated date
     """
     date = pd.Timestamp(date)
     if timescale in ['week', 'weekly']:
@@ -20,6 +20,11 @@ def truncate_date(date, timescale: str):
         return date
 
 def relative_date(date_string, reference_date):
+    """Get the date relative to the truncated date of the given date.
+
+    :param date_string: format is (date|week|month)(+|-)(n)
+    :param reference_date: the date to find relative date on
+    """
     m = re.match(r"^(date|week|month)([+-]\d+)$", date_string)
     if not m:
         raise ValueError("Invalid date: ", date_string)

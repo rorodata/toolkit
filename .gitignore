@@ -12,3 +12,6 @@ venv/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# Sphinx generated docs
+build/
