@@ -23,12 +23,18 @@ class API:
             return auth
 
     def get(self, path, params=None, **kwargs):
+        """Get a resource
+        """
         return self.request('GET', path, params=params, **kwargs).json()
 
     def post(self, path, data=None, json=None, **kwargs):
+        """Post a request
+        """
         return self.request('POST', path, data=data, json=json, **kwargs).json()
 
     def delete(self, path, **kwargs):
+        """Delete a resource
+        """
         return self.request('POST', path, **kwargs).json()
 
     def request(self, method, path, **kwargs):

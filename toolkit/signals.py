@@ -7,6 +7,8 @@ when events occur elsewhere in the application, without a tight coupling.
 """
 
 class Signal:
+    """Utility to create a signal and Connect listeners to the signal.
+    """
     def __init__(self, name=None):
         """Creates a signal.
         """
@@ -22,11 +24,11 @@ class Signal:
     def connect(self, f):
         """Connects a function to this signal.
 
-        Can also be used like a decorator.
+        Can also be used like a decorator
 
-        @signal_login.connect
-        def on_login(username):
-            ...
+        >>> @signal_login.connect
+        >>> def on_login(username):
+        >>>     ...
         """
         self.listeners.append(f)
         return f
