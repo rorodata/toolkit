@@ -147,8 +147,8 @@ Sample code ::
 
 	>>> from toolkit import Signal
 	>>> signal_loggin = Signal("LoggedIn") # Creates a new signal
-	>>> @signal_loggin.connect   
-	... def notify_user(username): # Connect the function to signal named signal_loggin  
+	>>> @signal_loggin.connect
+	... def notify_user(username): # Connect the function to signal named signal_loggin
 	...     print("Notify user about new logging through mail")
 	...
 	>>> signal_loggin.send("test_user") # Send the signal from any where in the system
@@ -172,3 +172,33 @@ Sample Code ::
 	>>> enum_types = schema.get_enum_types() # Get all the enum types
 	>>> table = schema.get_table('t1')  # Get t1 table
 	>>> table.get_indexes()
+
+fileformats
+-----------
+validate and transform the given data as per the fileformat specifications.
+
+Given input data is passed through a pipeline of validators. These validators
+can check structure and schema, for example are their blank rows or columns, is the data of right type etc.
+
+In return, the client receives a report on processing performed.
+
+
+Sample code ::
+
+	>>> from toolkit import FileFormat
+	>>> formatter = FileFormat.from_file("fileformats/customer-master.yml")
+	>>> formatter.process_file("master-files/customer-master/customer-master-20200601.csv")
+	<Report:status=ACCEPTED #errors=0>
+
+You can use command line tool as well for the validation (this comes along with the package).
+
+Command line tool ::
+
+	$ validate-fileformat --help
+	Usage: validate-fileformat [OPTIONS] FILE
+	....
+	$ validate-fileformat -f fileformats/customer-master.yml customer-master/customer-master-20200601.csv
+	File validation status: ACCEPTED
+	....
+	$ validate-fileformat -f fileformats/customer-master.yml customer-master/customer-master-20200601.csv -o report.json
+	File validation status: ACCEPTED
