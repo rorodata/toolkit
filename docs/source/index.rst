@@ -8,9 +8,9 @@ How to install
 
 Installation ::
 
-  $ pip install algoshelf-toolkit[all]>=0.1.20200219 --extra-index-url https://algoshelf:37iiOxaUQM9kJn93@pypi-dot-algoshelf-staging.appspot.com/
+  $ pip install algoshelf-toolkit --extra-index-url https://algoshelf:37iiOxaUQM9kJn93@pypi-dot-algoshelf-staging.appspot.com/
 
-**Note**: extra-index-url above might change in near future. Incase of failure please refer to notion page to get updated one. 
+**Note**: extra-index-url above might change in near future. Incase of failure please refer to `notion page <https://www.notion.so/rorodata/Python-Private-Packages-399f5f9c122e4ad8b7d3e81aa4c7d743>`_ to get updated one.
 
 How to use
 ----------
