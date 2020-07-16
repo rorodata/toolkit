@@ -7,3 +7,4 @@ from .cache import memoize # noqa
 from .dateutil import relative_date, truncate_date # noqa
 from .signals import Signal # noqa
 from .fileformat import FileFormat # noqa
+from .storage import StoragePath # noqa
