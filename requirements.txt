@@ -2,4 +2,6 @@ web.py
 psycopg2-binary
 pandas
 pyYAML
+pyarrow
 click
+boto3
